@@ -15,6 +15,8 @@ const calendar = document.querySelector(".calendar"),
   addEventTitle = document.querySelector(".event-name "),
   addEventFrom = document.querySelector(".event-time-from "),
   addEventTo = document.querySelector(".event-time-to "),
+  getEventDate = document.getElemenstById('getEventDate'),
+
   addEventSubmit = document.querySelector(".add-event-btn ");
   
 let today = new Date();
