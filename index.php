@@ -59,7 +59,7 @@ if (!isset($_SESSION['user_email'])) {
         <div class="event-date">19 April 2024</div>
       </div>
       <div class="events">
-        <!-- <div class="event">
+        <div class="event">
             <div class="title">
               <i class="fas fa-circle"></i>
               <h3 class="event-title">di choi</h3>
@@ -67,10 +67,10 @@ if (!isset($_SESSION['user_email'])) {
             <div class="event-time">
               <span class="event-time"></span>
             </div>
-        </div> -->
+        </div>
 
       </div>
-      <form id="formAddEvent" class="add-event-wrapper" method="post" action="saveEvent.php">
+      <form id="formAddEvent" class="add-event-wrapper" method="POST">
           <div class="add-event-header">
               <div class="title">Add Event</div>
               <i class="fas fa-times close"></i>
@@ -86,7 +86,7 @@ if (!isset($_SESSION['user_email'])) {
                 <input type="text" placeholder="Event Time To" class="event-time-to" name="eventfinished" value="" />
               </div>
               <div class="add-event-input">
-                <input type="hidden"  name="eventDate" id='getEventDate'/>
+                <input type="hidden"  name="eventDate" id='getEventDate' value=""/>
               </div>
             </div>
 

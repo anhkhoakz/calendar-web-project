@@ -14,9 +14,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("ssssi", $event_name, $event_start_date, $event_end_date, $eventDate, $userEmail);
     
     if ($stmt->execute()) {
-       header("location: index.php");
-    } else {
-        echo "Error: " . $stmt->error;
+        $sql = "SELECT * FROM events WHERE Eventday='$eventDate' AND Userid='$userEmail' AND Eventname='$event_name'";
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();  
+    
+        echo 
+        "<div class='event'>
+        <div class='title'>
+          <i class='fas fa-circle'></i>
+          <h3 class='event-title'>". $row['Eventname'] ."</h3>
+        </div>
+        <div class='event-time'>
+          <span class='event-time'>". $row['timestart'] ." - ". $row['timefinish'] ."</span>
+        </div>
+            </div>";
+    }
+        
+    else {
+        echo "Error";
     }
     
     $stmt->close();

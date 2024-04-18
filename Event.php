@@ -1,12 +1,13 @@
 <?php
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    include "./config/database.php";
+  include "./Account.php";
 
 
     $date = $_POST['eventDate'];
-    $sql = "select * from events where Eventday=$date";
+    $userId = selectIdByEmail($_SESSION['user_email'], $conn);;
+
+    $sql = "select * from events where Eventday=$date and Userid=$userId";
 
     $result = $conn -> query($sql);
 
@@ -26,10 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
     else{
-        echo 
-        "<div class='no-event'>
-                 <h3>No Events</h3>
-            </div>";
+        echo "<div class='no-event'><h3>No Events</h3></div>";
     }
 }
 

@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("sis", $event_name, $userEmail, $eventDate);
     
     if ($stmt->execute()) {
-       header("location: index.php");
+       echo "delete successfully";
     } else {
         echo "Error: " . $stmt->error;
     }
