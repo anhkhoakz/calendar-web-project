@@ -228,10 +228,20 @@ getEvent(function(eventsArr) {
   
   //function get active day day name and date and update eventday eventdate
   function getActiveDay(date) {
+
     const day = new Date(year, month, date);
     const dayName = day.toString().split(" ")[0];
     eventDay.innerHTML = dayName;
     eventDate.innerHTML = date + " " + months[month] + " " + year;
+
+    if (year < today.getFullYear() || 
+        (year === today.getFullYear() && month < today.getMonth()) || 
+        (year === today.getFullYear() && month === today.getMonth() && date < today.getDate())) {
+      addEventBtn.disabled = true;
+    } else {
+      addEventBtn.disabled = false;
+    }
+
   }
   
   //function update events when a day is active
@@ -312,6 +322,7 @@ getEvent(function(eventsArr) {
     if (addEventFrom.value.length > 5) {
       addEventFrom.value = addEventFrom.value.slice(0, 5);
     }
+
   });
   
   addEventTo.addEventListener("input", (e) => {
@@ -321,34 +332,6 @@ getEvent(function(eventsArr) {
     }
     if (addEventTo.value.length > 5) {
       addEventTo.value = addEventTo.value.slice(0, 5);
-    }
-  });
-  
-  
-  addEventSubmit.addEventListener("click", () => {
-  
-  
-    const eventTitle = addEventTitle.value;
-    const eventTimeFrom = addEventFrom.value;
-    const eventTimeTo = addEventTo.value;
-    if (eventTitle === "" || eventTimeFrom === "" || eventTimeTo === "") {
-      alert("Please fill all the fields");
-      return;
-    }
-  
-    //check correct time format 24 hour
-    const timeFromArr = eventTimeFrom.split(":");
-    const timeToArr = eventTimeTo.split(":");
-    if (
-      timeFromArr.length !== 2 ||
-      timeToArr.length !== 2 ||
-      timeFromArr[0] > 23 ||
-      timeFromArr[1] > 59 ||
-      timeToArr[0] > 23 ||
-      timeToArr[1] > 59
-    ) {
-      alert("Invalid Time Format");
-      return;
     }
   });
   
@@ -394,7 +377,52 @@ getEvent(function(eventsArr) {
   // Prevent form submission and handle it with JavaScript
   document.getElementById("formAddEvent").addEventListener("submit", function(event) {
     event.preventDefault(); // Prevent the default form submission
+    const eventTitle = addEventTitle.value;
+    const eventTimeFrom = addEventFrom.value;
+    const eventTimeTo = addEventTo.value;
+    if (eventTitle === "" || eventTimeFrom === "" || eventTimeTo === "") {
+      alert("Please fill all the fields");
+      return;
+    }
   
+    //check correct time format 24 hour
+    const timeFromArr = eventTimeFrom.split(":");
+    const timeToArr = eventTimeTo.split(":");
+    if (
+      timeFromArr.length !== 2 ||
+      timeToArr.length !== 2 ||
+      timeFromArr[0] > 23 ||
+      timeFromArr[1] > 59 ||
+      timeToArr[0] > 23 ||
+      timeToArr[1] > 59
+    ) {
+      alert("Invalid Time Format");
+      return;
+    }
+
+    const startHour = parseInt(timeFromArr[0], 10);
+    const startMinute = parseInt(timeFromArr[1], 10);
+    const endHour = parseInt(timeToArr[0], 10);
+    const endMinute = parseInt(timeToArr[1], 10);
+    
+    // Check if start time is after end time
+    if (startHour > endHour || (startHour === endHour && startMinute >= endMinute)) {
+      alert("The event start time must be earlier than the end time.");
+      return;
+    }
+
+    const now = new Date(); 
+    const currentHour = now.getHours(); 
+    const currentMinute = now.getMinutes(); 
+    const currentSecond = now.getSeconds();
+
+
+    if ((startHour <  currentHour || (startHour == currentHour && currentMinute >= startMinute)) && now.getDate() + " " + months[now.getMonth()]+ " " + now.getFullYear() == eventDate.innerHTML) {
+      alert("The event start time must be earlier than the current time.");
+      return;
+    }
+
+    
     function addEvent() {
         var formData = new FormData();
         // Get input values
@@ -412,14 +440,20 @@ getEvent(function(eventsArr) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-              eventsContainer.innerHTML += this.responseText;
-  
-              addEventWrapper.classList.remove("active");
-  
-              const activeDayEl = document.querySelector(".day.active");
-              if (!activeDayEl.classList.contains("event")) {
-                  activeDayEl.classList.add("event");
-              }  
+              
+              if(this.responseText == "exist event in this time"){
+                alert("Exist event in this time.");
+              }
+              else{
+                eventsContainer.innerHTML += this.responseText;
+    
+                addEventWrapper.classList.remove("active");
+    
+                const activeDayEl = document.querySelector(".day.active");
+                if (!activeDayEl.classList.contains("event")) {
+                    activeDayEl.classList.add("event");
+                }  
+              }
                 
             }
         };

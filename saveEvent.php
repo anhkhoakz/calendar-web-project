@@ -8,6 +8,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userEmail = selectIdByEmail($_SESSION['user_email'], $conn);
     $eventDate = $_POST["getEventDate"];
 
+    $sql = "SELECT * FROM events WHERE Eventday='$eventDate' AND Userid='$userEmail' AND timestart<'$event_start_date' AND timefinish>'$event_start_date'";
+    $result = $conn->query($sql);
+    
+    if ($result->num_rows > 0){
+      echo "exist event in this time";
+      exit;
+    }
+
+
     $sql = "INSERT INTO events (Eventname, timestart, timefinish, Eventday, Userid) VALUES (?, ?, ?, ?, ?)";
     
     $stmt = $conn->prepare($sql);

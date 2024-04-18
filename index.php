@@ -85,9 +85,7 @@ if (!isset($_SESSION['user_email'])) {
               <div class="add-event-input">
                 <input type="text" placeholder="Event Time To" class="event-time-to" name="eventfinished" value="" />
               </div>
-              <div class="add-event-input">
                 <input type="hidden"  name="eventDate" id='getEventDate' value=""/>
-              </div>
             </div>
 
           <div class="add-event-footer">
