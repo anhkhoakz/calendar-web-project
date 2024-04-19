@@ -2,17 +2,15 @@
 include "./EventDb.php";
 $events = selectAllEvents($conn);
 
-    // $getEventsFinish = selectAllEventsByStatus;
-$getEventsNotStart = [];
+list($getEventsNotStart,$getEventsFinish) = selectAllEventsByStatus($conn);
+
 if(isset($_GET['status']) ){
     if($_GET['status']=='finished')
         $events = $getEventsFinish;
 
-    else if($_GET['status']=='finished')
-        $event = $getEventsNotStart;
-    
+    else if($_GET['status']=='notstarted')
+        $events = $getEventsNotStart;
 }
-
 ?>
 
 
@@ -30,9 +28,12 @@ if(isset($_GET['status']) ){
 
 <?php include"./partials/header.php" ?>
 
-<a href="showAllEvents.php?status=finished" type="button" class="btn btn-primary">Primary</a>
-<a href="showAllEvents.php?status=notstarted" type="button" class="btn btn-secondary">Secondary</a>
-<a href="showAllEvents.php?status= " type="button" class="btn btn-success">Success</a>
+<div class="container">
+
+    <a href="showAllEvents.php" type="button" class="btn btn-secondary">All Events</a>
+    <a href="showAllEvents.php?status=finished" type="button" class="btn btn-primary">Events are over</a>
+    <a href="showAllEvents.php?status=notstarted" type="button" class="btn btn-secondary">Upcoming events</a>
+
     <table class="table table-striped">
         <thead>
             <tr>
@@ -55,6 +56,7 @@ if(isset($_GET['status']) ){
                 $eventFinish = $event['timefinish'];
                 $eventGetDate =  $event['Eventday'];
                 $status = "";
+                $text = '';
 
                 $eventComponents = explode(' ', $eventGetDate);
                 $monthAl = $eventComponents[1];
@@ -128,6 +130,7 @@ if(isset($_GET['status']) ){
                                 ($currentHour == $eventStartHour && $currentMinute < $eventStartMinute)))))))
                 ) {
                     $status = "not started";
+                    $text = "text-danger";
                 }
                 // Case 2: Event has already finished
                 elseif (
@@ -138,10 +141,14 @@ if(isset($_GET['status']) ){
                                 ($currentHour == $eventFinishHour && $currentMinute > $eventFinishMinute)))))))
                 ) {
                     $status = "finished";
+                    $text = "text-success";
+
                 }
                 // Case 3: Event is ongoing
                 else {
                     $status = "ongoing";
+                    $text = "text-warning";
+
                 }
 
             ?>
@@ -151,16 +158,27 @@ if(isset($_GET['status']) ){
                     <td><?= $eventGetDate ?></td>
                     <td><?= $eventStart ?></td>
                     <td><?= $eventFinish ?></td>
-                    <td><?= $status ?></td>
-                    <td><?= $currentHour ?></td>
-
+                    <td class="<?=$text?>"><?= $status ?></td>
+                    <!-- <td><?= $currentHour ?></td> -->
                 </tr>
 
             <?php
             }
             ?>
         </tbody>
+
+      
     </table>
+
+    <?php
+            if(count($events) == 0){
+                ?>
+                <div class="mt-5 pt-5" style="text-align:center;color: #878895;"><h2>No Event</h2></div>
+        <?php
+            }
+        ?>
+
+</div>
 
 </body>
 
