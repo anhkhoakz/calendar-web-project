@@ -17,7 +17,7 @@ if (!isset($_SESSION['user_email'])) {
   <meta name="description" content="Stay organized with our user-friendly Calendar featuring events, reminders, and a customizable interface. Built with HTML, CSS, and JavaScript. Start scheduling today!" />
   <meta name="keywords" content="calendar, events, reminders, javascript, html, css, open source coding" />
   <?php
-  include './partials/header.php';
+  include './partials/head.php';
   ?>
 
   <link rel="stylesheet" href="style.css" />
@@ -26,7 +26,13 @@ if (!isset($_SESSION['user_email'])) {
 </head>
 
 <body>
-  <div class="container">
+
+
+
+  <?php include "./partials/header.php" ?> 
+
+
+  <div class="container1">
     <div class="left">
       <div class="calendar">
         <div class="month">
@@ -97,7 +103,6 @@ if (!isset($_SESSION['user_email'])) {
       <i class="fas fa-plus"></i>
     </button>
   </div>
-
 
   <?php include './partials/footer.php' ?>
 

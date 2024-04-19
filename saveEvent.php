@@ -8,6 +8,88 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userEmail = selectIdByEmail($_SESSION['user_email'], $conn);
     $eventDate = $_POST["getEventDate"];
 
+
+
+    $eventComponents = explode(' ',$eventDate);
+    $year = $eventComponents[2];
+    $day = $eventComponents[0];
+
+    $monthAl = $eventComponents[1];
+    $month;
+
+    switch (strtolower($monthAl)) {
+      case "january":
+          $month = 1;
+          break;
+      case "february":
+          $month = 2;
+          break;
+      case "march":
+          $month = 3;
+          break;
+      case "april":
+          $month = 4;
+          break;
+      case "may":
+          $month = 5;
+          break;
+      case "june":
+          $month = 6;
+          break;
+      case "july":
+          $month = 7;
+          break;
+      case "august":
+          $month = 8;
+          break;
+      case "september":
+          $month = 9;
+          break;
+      case "october":
+          $month = 10;
+          break;
+      case "november":
+          $month = 11;
+          break;
+      case "december":
+          $month = 12;
+          break;
+  }
+
+    $timeFromArr = explode(':',$event_start_date );
+    $timeToArr = explode(':',$event_end_date );
+
+    
+    $startHour = intval($timeFromArr[0]);
+    $startMinute = intval($timeFromArr[1]);
+    $endHour = intval($timeToArr[0]);
+    $endMinute = intval($timeToArr[1]);
+
+
+    if ($startHour > $endHour || ($startHour === $endHour && $startMinute >= $endMinute)) {
+      echo("The event start time must be earlier than the end time.");
+      exit;
+    }
+
+    $now = getdate(); 
+    $currentHour = $now['hours'];
+    $currentMinute = $now['minutes'];
+    $currentYear = $now['year'];
+    $currentMonth = $now['mon'];
+    $currentDay = $now['mday'];
+
+
+    if (
+      $currentYear > $year ||
+      ($currentYear == $year && ($currentMonth > $month ||
+          ($currentMonth == $month && ($currentDay > $day ||
+              ($currentDay == $day && ($currentHour > $startHour ||
+                  ($currentHour == $startHour && $currentMinute > $startMinute)))))))
+  ) {
+      echo "The event start time must be earlier than the current time.";
+      exit;
+  }
+
     $sql = "SELECT * FROM events WHERE Eventday='$eventDate' AND Userid='$userEmail' AND timestart<'$event_start_date' AND timefinish>'$event_start_date'";
     $result = $conn->query($sql);
     

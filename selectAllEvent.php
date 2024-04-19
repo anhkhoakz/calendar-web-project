@@ -1,8 +1,10 @@
 <?php
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  include "./config/database.php";
-    $sql = "select * from events";
+    include "./Account.php";
+
+  $uId = selectIdByEmail($_SESSION['user_email'], $conn);
+    $sql = "select * from events where Userid = $uId";
 
     $result = $conn -> query($sql);
 

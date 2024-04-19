@@ -414,7 +414,6 @@ getEvent(function(eventsArr) {
     const now = new Date(); 
     const currentHour = now.getHours(); 
     const currentMinute = now.getMinutes(); 
-    const currentSecond = now.getSeconds();
 
 
     if ((startHour <  currentHour || (startHour == currentHour && currentMinute >= startMinute)) && now.getDate() + " " + months[now.getMonth()]+ " " + now.getFullYear() == eventDate.innerHTML) {
@@ -443,6 +442,12 @@ getEvent(function(eventsArr) {
               
               if(this.responseText == "exist event in this time"){
                 alert("Exist event in this time.");
+              }
+              else if(this.responseText == "The event start time must be earlier than the end time."){
+                alert("The event start time must be earlier than the end time.");
+              }
+              else if(this.responseText ==  "The event start time must be earlier than the current time."){
+                alert("The event start time must be earlier than the current time.");
               }
               else{
                 eventsContainer.innerHTML += this.responseText;

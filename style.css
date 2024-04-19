@@ -23,13 +23,13 @@
 body {
   position: relative;
   min-height: 100vh;
-  display: flex;
+  /* display: flex; */
   align-items: center;
   justify-content: center;
   padding-bottom: 30px;
   background-color: #e2e1dc;
 }
-.container {
+.container1 {
   position: relative;
   width: 1200px;
   min-height: 850px;
