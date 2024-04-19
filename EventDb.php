@@ -27,7 +27,6 @@ function selectAllEventsByStatus($conn){
     $sql = "select * from events where Userid = $uId";
     $result = $conn -> query($sql);
 
-    $status = '';
     $eventsFinished = [];
     $eventsNotStarted = [];
 
@@ -79,10 +78,8 @@ function selectAllEventsByStatus($conn){
                     break;
             }
 
-
             $year = $eventComponents[2];
             $day = $eventComponents[0];
-
 
             $dateInfo = getdate();
             $currentYear = $dateInfo['year'];
@@ -91,11 +88,9 @@ function selectAllEventsByStatus($conn){
             $currentHour = $dateInfo['hours'];
             $currentMinute = $dateInfo['minutes'];
 
-
             $startTimeComponents = explode(':', $eventStart);
             $eventStartHour = (int)$startTimeComponents[0];
             $eventStartMinute = (int)$startTimeComponents[1];
-
 
             $finishTimeComponents = explode(':', $eventFinish);
             $eventFinishHour = (int)$finishTimeComponents[0];
@@ -116,12 +111,12 @@ function selectAllEventsByStatus($conn){
                         ($currentDay == $day && ($currentHour > $eventFinishHour ||
                             ($currentHour == $eventFinishHour && $currentMinute > $eventFinishMinute)))))))
             ) {
-                $eventFinish[]  = $row;
+                $eventsFinished[]  = $row;
             }
-
         }
     }
 
-    return  array($eventsNotStarted, $eventsFinished);
+    return array($eventsNotStarted, $eventsFinished);
 }
+
 ?>
