@@ -101,6 +101,7 @@ if(isset($_GET['status']) ){
                 }
 
 
+<<<<<<< HEAD
                 $year = $eventComponents[2];
                 $day = $eventComponents[0];
 
@@ -116,6 +117,82 @@ if(isset($_GET['status']) ){
                 $startTimeComponents = explode(':', $eventStart);
                 $eventStartHour = (int)$startTimeComponents[0];
                 $eventStartMinute = (int)$startTimeComponents[1];
+=======
+  <?php include "./partials/header.php" ?>
+
+
+  <div class="container1">
+    <div class="left">
+      <div class="calendar">
+        <div class="month">
+          <i class="fas fa-angle-left prev"></i>
+          <div class="date">december 2015</div>
+          <i class="fas fa-angle-right next"></i>
+        </div>
+        <div class="weekdays">
+          <div>Sun</div>
+          <div>Mon</div>
+          <div>Tue</div>
+          <div>Wed</div>
+          <div>Thu</div>
+          <div>Fri</div>
+          <div>Sat</div>
+        </div>
+        <div class="days"></div>
+        <div class="goto-today">
+          <div class="goto">
+            <input type="month" placeholder="mm/yyyy" class="date-input" />
+            <button class="goto-btn">Go</button>
+          </div>
+          <button class="today-btn">Today</button>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="today-date">
+        <div class="event-day">Tue</div>
+        <div class="event-date">19 April 2024</div>
+      </div>
+      <div class="events">
+        <div class="event">
+          <div class="title">
+            <i class="fas fa-circle"></i>
+            <h3 class="event-title">di choi</h3>
+          </div>
+          <div class="event-time">
+            <span class="event-time"></span>
+          </div>
+        </div>
+
+      </div>
+      <form id="formAddEvent" class="add-event-wrapper" method="POST">
+        <div class="add-event-header">
+          <div class="title">Add Event</div>
+          <i class="fas fa-times close"></i>
+        </div>
+        <div class="add-event-body">
+          <div class="add-event-input">
+            <input name="event" type="text" placeholder="Event Name" class="event-name" value="" />
+          </div>
+          <div class="add-event-input">
+            <input type="text" placeholder="Event Time From" class="event-time-from" name="eventstart" value="" />
+          </div>
+          <div class="add-event-input">
+            <input type="text" placeholder="Event Time To" class="event-time-to" name="eventfinished" value="" />
+          </div>
+          <input type="hidden" name="eventDate" id='getEventDate' value="" />
+        </div>
+
+        <div class="add-event-footer">
+          <button type="submit" class="add-event-btn">Add Event</button>
+        </div>
+      </form>
+    </div>
+    <button class="add-event">
+      <i class="fas fa-plus"></i>
+    </button>
+  </div>
+>>>>>>> 3ea89847c59f488dcfb364291ddae42af0bda47d
 
 
                 $finishTimeComponents = explode(':', $eventFinish);

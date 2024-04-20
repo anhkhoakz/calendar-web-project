@@ -1,13 +1,13 @@
 <?php
 include "../config/database.php";
-if(isset($_POST['name']) && isset($_POST['password']) && isset($_POST['email']) && isset($_POST['Cpassword'])) {
+if (isset($_POST['name']) && isset($_POST['password']) && isset($_POST['email']) && isset($_POST['Cpassword'])) {
     $name = $_POST['name'];
     $pwd = $_POST['password'];
     $email = $_POST['email'];
     $cpwd = $_POST['Cpassword'];
 
-    if($cpwd === $pwd) {
-        
+    if ($cpwd === $pwd) {
+
         // Check connection
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
@@ -20,7 +20,7 @@ if(isset($_POST['name']) && isset($_POST['password']) && isset($_POST['email']) 
         // Validate email
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $_SESSION['signup'] = "Invalid email format";
-        header("Location: ./AccsessPage.php");
+            header("Location: ./AccsessPage.php");
 
             exit;
         }
@@ -41,8 +41,8 @@ if(isset($_POST['name']) && isset($_POST['password']) && isset($_POST['email']) 
         $sql = "INSERT INTO users (Username, email, pwd) VALUES ('$name', '$email', '$pwd')";
         if ($conn->query($sql) === TRUE) {
             $_SESSION['signup-success'] = "Registration successful. Please log in";
-           header("Location: ./AccsessPage.php");
-           exit;
+            header("Location: ./AccsessPage.php");
+            exit;
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
@@ -52,8 +52,5 @@ if(isset($_POST['name']) && isset($_POST['password']) && isset($_POST['email']) 
     } else {
         $_SESSION['signup'] = "Passwords do not match";
         header("Location: ./AccsessPage.php");
-
     }
 }
-
-?>
