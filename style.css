@@ -1,10 +1,6 @@
 :root {
-<<<<<<< HEAD
   --primary-clr: #b38add;
   --color-white: #ffff;
-=======
-    --primary-clr: #b38add;
->>>>>>> 3ea89847c59f488dcfb364291ddae42af0bda47d
 }
 * {
     margin: 0;
@@ -25,7 +21,6 @@
     border-radius: 50px;
 }
 
-<<<<<<< HEAD
 
 
 .body {
@@ -36,16 +31,6 @@
   justify-content: center;
   padding-bottom: 30px;
   background-color: #e2e1dc;
-=======
-body {
-    position: relative;
-    min-height: 100vh;
-    /* display: flex; */
-    align-items: center;
-    justify-content: center;
-    padding-bottom: 30px;
-    background-color: #e2e1dc;
->>>>>>> 3ea89847c59f488dcfb364291ddae42af0bda47d
 }
 .container1 {
     position: relative;
@@ -258,19 +243,11 @@ body {
     border-left: 1px solid var(--primary-clr);
     border-radius: 0;
 }
-<<<<<<< HEAD
 .container1 .right {
   position: relative;
   width: 40%;
   min-height: 100%;
   padding: 20px 0;
-=======
-.container .right {
-    position: relative;
-    width: 40%;
-    min-height: 100%;
-    padding: 20px 0;
->>>>>>> 3ea89847c59f488dcfb364291ddae42af0bda47d
 }
 
 .right .today-date {
@@ -504,7 +481,6 @@ body {
 /* media queries */
 
 @media screen and (max-width: 1000px) {
-<<<<<<< HEAD
   .body {
     align-items: flex-start;
     justify-content: flex-start;
@@ -543,46 +519,6 @@ body {
   .add-event-wrapper {
     bottom: 100px;
   }
-=======
-    body {
-        align-items: flex-start;
-        justify-content: flex-start;
-    }
-    .container {
-        min-height: 100vh;
-        flex-direction: column;
-        border-radius: 0;
-    }
-    .container .left {
-        width: 100%;
-        height: 100%;
-        padding: 20px 0;
-    }
-    .container .right {
-        width: 100%;
-        height: 100%;
-        padding: 20px 0;
-    }
-    .calendar::before,
-    .calendar::after {
-        top: 100%;
-        left: 50%;
-        width: 97%;
-        height: 12px;
-        border-radius: 0 0 5px 5px;
-        transform: translateX(-50%);
-    }
-    .calendar::before {
-        width: 94%;
-        top: calc(100% + 12px);
-    }
-    .events {
-        padding-bottom: 340px;
-    }
-    .add-event-wrapper {
-        bottom: 100px;
-    }
->>>>>>> 3ea89847c59f488dcfb364291ddae42af0bda47d
 }
 @media screen and (max-width: 500px) {
     .calendar .month {
@@ -605,24 +541,12 @@ body {
 }
 
 .credits {
-<<<<<<< HEAD
 
   text-align: center;
   padding: 10px;
   font-size: 12px;
   color: #fff;
   background-color: #b38add;
-=======
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    text-align: center;
-    padding: 10px;
-    font-size: 12px;
-    color: #fff;
-    background-color: #b38add;
->>>>>>> 3ea89847c59f488dcfb364291ddae42af0bda47d
 }
 .credits a {
     color: #fff;

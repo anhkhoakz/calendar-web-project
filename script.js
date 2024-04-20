@@ -268,8 +268,6 @@ getEvent(function(eventsArr) {
   
     xhr.open("POST", "http://localhost:3000/event.php", true);
     xhr.send(formData);
-  
-    
   }
   
   //function to add event
