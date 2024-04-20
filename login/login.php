@@ -1,13 +1,7 @@
 <?php
 include "../config/database.php";
 
-<<<<<<< HEAD
 if(isset($_POST['password']) && isset($_POST['email'])) {
-=======
-
-
-if (isset($_POST['password']) && isset($_POST['email'])) {
->>>>>>> 3ea89847c59f488dcfb364291ddae42af0bda47d
     $pwd = $_POST['password'];
     $email = $_POST['email'];
 

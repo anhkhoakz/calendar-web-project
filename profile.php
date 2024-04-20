@@ -1,3 +1,24 @@
+<?php
+include "./Account.php";
+
+if(isset($_POST['savePassword'])){
+    $email = $_SESSION["user_email"];
+    $oldPass = $_POST["oldPassword"];
+    $newPass = $_POST["newPassword"];
+    $confirmPass = $_POST["confirmPassword"];
+
+    if($newPass !== $confirmPass){
+        $_SESSION["changePass"] = "New password and confirm password must equal";
+    }
+    else{
+
+        changePassword($email, $oldPass,$newPass, $conn);
+    }
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +32,22 @@
 
 <body>
     <div class="container mt-5">
+        <?php 
+            if(isset($_SESSION["changePass"])){
+        ?>
+                <div><?=$_SESSION["changePass"]?></div>
+        <?php
+                unset($_SESSION["changePass"]);
+            }
+
+            if(isset($_SESSION["changePassSuccess"])){
+        ?>
+                <div><?=$_SESSION["changePassSuccess"]?></div>
+        <?php
+                unset($_SESSION["changePassSuccess"]);
+            }
+        ?>
+        
         <div class="main">
             <div class="row">
                 <div class="col-md-4 col-sm-12 bg-light py-3">
@@ -24,9 +61,8 @@
                         <div class="card text-start align-items-center">
                             <div class="card-body">
                                 <div class="row">
-                                    <a href="" class="btn">Profile</a>
-                                    <a href="" class="btn">Add event</a>
-                                    <a href="" class="btn">Privacy policy</a>
+                                    <a href="<?= ROOT_URL . "setEventPage.php" ?>" class="btn">Add event</a>
+                                    <a href="<?= ROOT_URL . "setEventPage.php" ?>" class="btn">Privacy policy</a>
                                     <a href="LICENSE.php" class="btn">License</a>
                                 </div>
                             </div>
@@ -83,6 +119,8 @@
     <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
+            <form id="changePasswordForm" method="post" action="">
+
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">
                         Change Password
@@ -90,8 +128,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="changePasswordForm" method="post" action="php/changePassword.php">
-                        <input type="hidden" name="username" id="username" value="<?= $_POST['username'] ?>" />
                         <input type="hidden" name="email" id="email" value=" <?= $_POST['email'] ?>" />
                         <div class="mb-3">
                             <label for="oldPassword" class="form-label">Old Password</label>
@@ -105,17 +141,17 @@
                             <label for="confirmPassword" class="form-label">Confirm New Password</label>
                             <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required />
                         </div>
-                    </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" name="savePassword" class="btn btn-primary" id="savePasswordButton">
+                            Save
+                        </button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Close
-                    </button>
-                    <button onclick="autoSubmitForm()" type="button" class="btn btn-primary" id="savePasswordButton">
-                        Save
-                    </button>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
     <!-- End of Password change form modal -->
