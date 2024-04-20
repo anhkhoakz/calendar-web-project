@@ -19,70 +19,195 @@
 
     <body>
         <div class="container mt-5">
-            <div class="row">
-                <div class="col-4 sidebar bg-light py-3">
-                    <div class="card text-start align-items-center">
-                        <div class="card-body">
-                            <div class="row">
-                                <a href="" class="btn">Profile</a>
-                                <a href="" class="btn">Add event</a>
-                                <a href="" class="btn">Privacy policy</a>
-                                <a href="LICENSE.php" class="btn">License</a>
+            <div class="main">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12 bg-light py-3">
+                        <div class="sidebar text-center card mt-1">
+                            <div class="d-flex justify-content-center pt-3">
+                                <img
+                                    src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                    alt="profile"
+                                    class="rounded-circle"
+                                    width="80"
+                                />
+                            </div>
+                            <h4>John Doe</h4>
+                        </div>
+                        <div class="border-1">
+                            <div class="card text-start align-items-center">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <a href="" class="btn">Profile</a>
+                                        <a href="" class="btn">Add event</a>
+                                        <a href="" class="btn"
+                                            >Privacy policy</a
+                                        >
+                                        <a href="LICENSE.php" class="btn"
+                                            >License</a
+                                        >
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- <ul class="nav flex-column align-items-center">
-                        <li class="nav-item">
-                            <a
-                                class="nav-link d-flex align-items-center gap-2"
-                                href="#"
-                                >Profile</a
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Add event</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Logout</a>
-                        </li>
-                    </ul> -->
-                </div>
-                <div class="col-8">
-                    <div class="card">
-                        <div class="card-body">
-                            <form action="">
-                                <div class="row mb-3">
-                                    <div class="col-sm-3">
-                                        <h6 class="mb-0">Email</h6>
+                    <div class="col-md-8 col-sm-12 bg-light py-3">
+                        <div class="card md-3 mt-1">
+                            <h2 class="m-3 pt-3">About</h2>
+                            <div class="card-body">
+                                <div class="row pb-3">
+                                    <div class="col-md-3">
+                                        <h5>Username</h5>
                                     </div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                        />
+                                    <div class="col-md-9 text-secondary">
+                                        <span id="currentUsername"
+                                            >Username
+                                        </span>
                                     </div>
                                 </div>
-
-                                <div class="row mb-3">
-                                    <div class="col-sm-3">
-                                        <h6 class="mb-0">Password</h6>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <h5>Email</h5>
                                     </div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <input
-                                            type="password"
-                                            class="form-control"
-                                        />
+                                    <div class="col-md-9 text-secondary">
+                                        <span id="currentEmail">Email</span>
+                                        <form
+                                            method="post"
+                                            action="php/editEmail.php"
+                                            id="editForm"
+                                        >
+                                            <input
+                                                type="hidden"
+                                                name="username"
+                                                value=""
+                                            />
+                                            <input
+                                                type="email"
+                                                name="emailInput"
+                                                id="emailInput"
+                                                style="display: none"
+                                            />
+                                            <input
+                                                type="hidden"
+                                                name="password"
+                                                value=""
+                                            />
+                                        </form>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary">
-                                    Edit
-                                </button>
-                            </form>
+                                <div class="col-md-3 mt-3 pl-0">
+                                    <button
+                                        type="button"
+                                        class="btn btn-primary"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#changePasswordModal"
+                                    >
+                                        Change Password
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Password change form modal -->
+        <div
+            class="modal fade"
+            id="changePasswordModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                            Change Password
+                        </h5>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body">
+                        <form
+                            id="changePasswordForm"
+                            method="post"
+                            action="php/changePassword.php"
+                        >
+                            <input
+                                type="hidden"
+                                name="username"
+                                id="username"
+                                value="<?= $_POST['username'] ?>"
+                            />
+                            <input
+                                type="hidden"
+                                name="email"
+                                id="email"
+                                value=" <?= $_POST['email'] ?>"
+                            />
+                            <div class="mb-3">
+                                <label for="oldPassword" class="form-label"
+                                    >Old Password</label
+                                >
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    id="oldPassword"
+                                    name="oldPassword"
+                                    required
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <label for="newPassword" class="form-label"
+                                    >New Password</label
+                                >
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    id="newPassword"
+                                    name="newPassword"
+                                    required
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label"
+                                    >Confirm New Password</label
+                                >
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    id="confirmPassword"
+                                    name="confirmPassword"
+                                    required
+                                />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                        >
+                            Close
+                        </button>
+                        <button
+                            onclick="autoSubmitForm()"
+                            type="button"
+                            class="btn btn-primary"
+                            id="savePasswordButton"
+                        >
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Password change form modal -->
     </body>
 </html>
