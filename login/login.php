@@ -3,11 +3,11 @@ include "../config/database.php";
 
 
 
-if(isset($_POST['password']) && isset($_POST['email'])) {
+if (isset($_POST['password']) && isset($_POST['email'])) {
     $pwd = $_POST['password'];
     $email = $_POST['email'];
 
-    
+
     $email = $conn->real_escape_string($email);
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -23,7 +23,7 @@ if(isset($_POST['password']) && isset($_POST['email'])) {
         // User with this email exists, now verify password
         $row = $result->fetch_assoc();
         $stored_hash = $row['pwd'];
-        
+
         // Verify password
         if (password_verify($pwd, $stored_hash)) {
             $_SESSION['user_email'] = $email;
@@ -43,5 +43,3 @@ if(isset($_POST['password']) && isset($_POST['email'])) {
     // Close connection
     $conn->close();
 }
-
-?>

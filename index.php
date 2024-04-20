@@ -29,7 +29,7 @@ if (!isset($_SESSION['user_email'])) {
 
 
 
-  <?php include "./partials/header.php" ?> 
+  <?php include "./partials/header.php" ?>
 
 
   <div class="container1">
@@ -66,37 +66,37 @@ if (!isset($_SESSION['user_email'])) {
       </div>
       <div class="events">
         <div class="event">
-            <div class="title">
-              <i class="fas fa-circle"></i>
-              <h3 class="event-title">di choi</h3>
-            </div>
-            <div class="event-time">
-              <span class="event-time"></span>
-            </div>
+          <div class="title">
+            <i class="fas fa-circle"></i>
+            <h3 class="event-title">di choi</h3>
+          </div>
+          <div class="event-time">
+            <span class="event-time"></span>
+          </div>
         </div>
 
       </div>
       <form id="formAddEvent" class="add-event-wrapper" method="POST">
-          <div class="add-event-header">
-              <div class="title">Add Event</div>
-              <i class="fas fa-times close"></i>
+        <div class="add-event-header">
+          <div class="title">Add Event</div>
+          <i class="fas fa-times close"></i>
+        </div>
+        <div class="add-event-body">
+          <div class="add-event-input">
+            <input name="event" type="text" placeholder="Event Name" class="event-name" value="" />
           </div>
-          <div class="add-event-body">
-              <div class="add-event-input">
-                <input name="event" type="text" placeholder="Event Name" class="event-name" value=""/>
-              </div>
-              <div class="add-event-input">
-                <input type="text" placeholder="Event Time From" class="event-time-from" name="eventstart" value=""/>
-              </div>
-              <div class="add-event-input">
-                <input type="text" placeholder="Event Time To" class="event-time-to" name="eventfinished" value="" />
-              </div>
-                <input type="hidden"  name="eventDate" id='getEventDate' value=""/>
-            </div>
+          <div class="add-event-input">
+            <input type="text" placeholder="Event Time From" class="event-time-from" name="eventstart" value="" />
+          </div>
+          <div class="add-event-input">
+            <input type="text" placeholder="Event Time To" class="event-time-to" name="eventfinished" value="" />
+          </div>
+          <input type="hidden" name="eventDate" id='getEventDate' value="" />
+        </div>
 
-          <div class="add-event-footer">
-            <button type="submit" class="add-event-btn">Add Event</button>
-          </div>
+        <div class="add-event-footer">
+          <button type="submit" class="add-event-btn">Add Event</button>
+        </div>
       </form>
     </div>
     <button class="add-event">

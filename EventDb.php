@@ -7,11 +7,11 @@ function selectAllEvents($conn)
 
     $uId = selectIdByEmail($_SESSION['user_email'], $conn);
     $sql = "select * from events where Userid = $uId";
-    $result = $conn -> query($sql);
+    $result = $conn->query($sql);
 
     $array = [];
 
-    if($result->num_rows > 0){
+    if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $array[] = $row;
         }
@@ -21,16 +21,17 @@ function selectAllEvents($conn)
 }
 
 
-function selectAllEventsByStatus($conn){
+function selectAllEventsByStatus($conn)
+{
 
     $uId = selectIdByEmail($_SESSION['user_email'], $conn);
     $sql = "select * from events where Userid = $uId";
-    $result = $conn -> query($sql);
+    $result = $conn->query($sql);
 
     $eventsFinished = [];
     $eventsNotStarted = [];
 
-    if($result->num_rows > 0){
+    if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $eventStart =  $row['timestart'];
             $eventFinish = $row['timefinish'];
@@ -118,5 +119,3 @@ function selectAllEventsByStatus($conn){
 
     return array($eventsNotStarted, $eventsFinished);
 }
-
-?>
