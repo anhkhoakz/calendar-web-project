@@ -9,7 +9,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $eventDate = $_POST["getEventDate"];
 
 
-
     $eventComponents = explode(' ', $eventDate);
     $year = $eventComponents[2];
     $day = $eventComponents[0];

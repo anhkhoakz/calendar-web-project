@@ -19,8 +19,7 @@ function selectIdByEmail($email, $conn)
 }
 
 
-
-function selectUserForUpdateByEmail($email, $conn)
+function selectAvatarByEmail($email, $conn)
 {
     $sql = "SELECT * FROM users WHERE email = ?";
 
@@ -34,9 +33,26 @@ function selectUserForUpdateByEmail($email, $conn)
 
     $row = $result->fetch_assoc();
 
-    return array ($row['Username'] , $row['avatar']);
+    return $row['avatar'] ;
 }
 
+
+function selectUser($email, $conn)
+{
+    $sql = "SELECT * FROM users WHERE email = ?";
+
+    $stmt = $conn->prepare($sql);
+
+    $stmt->bind_param("s", $email);
+
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
+    $row = $result->fetch_assoc();
+
+    return $row;
+}
 
 function changePassword($email, $pass, $newPass, $conn) {
     $sql = "SELECT * FROM users WHERE email = ? ";
@@ -62,18 +78,29 @@ function changePassword($email, $pass, $newPass, $conn) {
 }
 
 
-function updateUser($userName, $avatar, $conn){
-    $sql = "UPDATE users SET Username = ? and avatar = ? WHERE email = ?";
+function updateUser($email,$userName, $avatar, $password,$conn){
+    
+    $row = selectUser($email, $conn);
 
-    $stmt = $conn->prepare($sql);
-
-    $stmt->bind_param("ss", $userName, $avatar);
-   
-    if( !$stmt->execute()){
-         echo ("Execute failed: " . $stmt->error);
-         exit;
+    if (!password_verify($password, $row["pwd"])) {
+        $_SESSION["updateUser"] = "Password incorrect";
     }
-    echo "Update Infomation successfully!";
+    else{
+
+        $sql = "UPDATE users SET Username = ?, avatar = ? WHERE email = ?";
+
+
+        $stmt = $conn->prepare($sql);
+
+        $stmt->bind_param("sss", $userName, $avatar, $email);
+    
+        if( !$stmt->execute()){
+            $_SESSION["updateUser"] = ("Execute failed: " . $stmt->error);
+            exit;
+        }
+        $_SESSION["updateUserSuccess"] = "Update Infomation successfully!";
+    }
 }
+
 
 

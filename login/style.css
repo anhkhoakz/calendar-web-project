@@ -3,6 +3,10 @@
     --primary-clr: #b38add;
 }
 
+::file-selector-button {
+    display: none;
+  }
+
 * {
     margin: 0;
     padding: 0;
@@ -119,6 +123,15 @@ header {
 
 .signup-box {
     gap: 30px;
+}
+
+.ele1{
+    padding: 15px;
+    padding-left: 30px;
+    width: 400px;
+    color: rgb(77, 77, 77);
+    background-color: rgb(240, 240, 240);
+    border-radius: 50px;
 }
 
 .ele {

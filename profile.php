@@ -1,8 +1,9 @@
 <?php
 include "./Account.php";
+include "./partials/header.php";
+$email = $_SESSION["user_email"];
 
 if(isset($_POST['savePassword'])){
-    $email = $_SESSION["user_email"];
     $oldPass = $_POST["oldPassword"];
     $newPass = $_POST["newPassword"];
     $confirmPass = $_POST["confirmPassword"];
@@ -14,8 +15,29 @@ if(isset($_POST['savePassword'])){
 
         changePassword($email, $oldPass,$newPass, $conn);
     }
-
 }
+
+
+if(isset($_POST['updateUser'])){
+    $userName = $_POST["username"];
+    $confirmPass = $_POST["confirmPassword"];
+    $img_name = "";
+    if ($_FILES['avatar']['error'] != UPLOAD_ERR_OK) {
+        $img_name = selectUser($email,$conn)["avatar"];
+    }
+    else{
+        $img_name =  $_FILES['avatar']['name'];
+        $img_destination_path = '../imgs/' . $img_name;
+        $img_tmp_name = $_FILES['avatar']['tmp_name'];
+
+        move_uploaded_file($img_tmp_name, $img_destination_path);
+    }
+
+    updateUser($email,$userName, $img_name, $confirmPass,$conn);
+}
+
+$user = selectUser($email,$conn);
+$userName = $user['Username'];
 
 ?>
 
@@ -35,16 +57,33 @@ if(isset($_POST['savePassword'])){
         <?php 
             if(isset($_SESSION["changePass"])){
         ?>
-                <div><?=$_SESSION["changePass"]?></div>
+                <div class="alert alert-danger"><?=$_SESSION["changePass"]?></div>
         <?php
                 unset($_SESSION["changePass"]);
             }
 
             if(isset($_SESSION["changePassSuccess"])){
         ?>
-                <div><?=$_SESSION["changePassSuccess"]?></div>
+                <div class="alert alert-success"><?=$_SESSION["changePassSuccess"]?></div>
         <?php
                 unset($_SESSION["changePassSuccess"]);
+            }
+        ?>
+
+
+        <?php 
+            if(isset($_SESSION["updateUser"])){
+        ?>
+                <div class="alert alert-danger"><?=$_SESSION["updateUser"]?></div>
+        <?php
+                unset($_SESSION["updateUser"]);
+            }
+
+            if(isset($_SESSION["updateUserSuccess"])){
+        ?>
+                <div class="alert alert-success"><?=$_SESSION["updateUserSuccess"]?></div>
+        <?php
+                unset($_SESSION["updateUserSuccess"]);
             }
         ?>
         
@@ -53,9 +92,9 @@ if(isset($_POST['savePassword'])){
                 <div class="col-md-4 col-sm-12 bg-light py-3">
                     <div class="sidebar text-center card mt-1">
                         <div class="d-flex justify-content-center pt-3">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="profile" class="rounded-circle" width="80" />
+                            <img src="<?= ROOT_URL . "imgs/" . $avatar ?>" alt="profile" class="rounded-circle" width="100" />
                         </div>
-                        <h4>John Doe</h4>
+                        <h4><?=$userName?></h4>
                     </div>
                     <div class="border-1">
                         <div class="card text-start align-items-center">
@@ -78,7 +117,7 @@ if(isset($_POST['savePassword'])){
                                     <h5>Username</h5>
                                 </div>
                                 <div class="col-md-9 text-secondary">
-                                    <span id="currentUsername">Username
+                                    <span id="currentUsername"><?=$userName?>
                                     </span>
                                 </div>
                             </div>
@@ -87,7 +126,7 @@ if(isset($_POST['savePassword'])){
                                     <h5>Email</h5>
                                 </div>
                                 <div class="col-md-9 text-secondary">
-                                    <span id="currentEmail">Email</span>
+                                    <span id="currentEmail"><?=$email?></span>
                                     <form method="post" action="php/editEmail.php" id="editForm">
                                         <input type="hidden" name="username" value="" />
                                         <input type="email" name="emailInput" id="emailInput" style="display: none" />
@@ -96,7 +135,7 @@ if(isset($_POST['savePassword'])){
                                 </div>
                             </div>
                             <div class="col-md-3 mt-3 pl-0">
-                                <button type="button" class="px-4 btn btn-primary" onclick="editProfile()" id="editButton">
+                                <button type="button" class="px-4 btn btn-primary" id="editButton" data-bs-toggle="modal" data-bs-target="#upadteUserModal">
                                     Edit
                                 </button>
                             </div>
@@ -115,6 +154,49 @@ if(isset($_POST['savePassword'])){
         </div>
     </div>
 
+
+        <!-- update user form modal -->
+    <div class="modal fade" id="upadteUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <form id="changePasswordForm" method="post" action="" enctype="multipart/form-data">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Update User
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                        <input type="hidden" name="email" id="email" value=" <?= $_SESSION['user_email'] ?>" />
+                        <div class="mb-3">
+                            <label for="username" class="form-label">New User Name</label>
+                            <input type="text" class="form-control" id="username" name="username" required />
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">avatar</label>
+                            <input type="file" accept="image/gif, image/jpeg, image/png, image/bmp" class="form-control" id="confirmPassword" name="avatar" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Enter password</label>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" name="updateUser" class="btn btn-primary" id="savePasswordButton">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
     <!-- Password change form modal -->
     <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -128,7 +210,7 @@ if(isset($_POST['savePassword'])){
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                        <input type="hidden" name="email" id="email" value=" <?= $_POST['email'] ?>" />
+                        <input type="hidden" name="email" id="email" value=" <?= $_SESSION['user_email'] ?>" />
                         <div class="mb-3">
                             <label for="oldPassword" class="form-label">Old Password</label>
                             <input type="password" class="form-control" id="oldPassword" name="oldPassword" required />
@@ -155,6 +237,7 @@ if(isset($_POST['savePassword'])){
         </div>
     </div>
     <!-- End of Password change form modal -->
+
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 <?php
-include "./config/constants.php";
+include "./Account.php";
 
 if (!isset($_SESSION['user_email'])) {
   header("location: ./login/AccsessPage.php");

@@ -74,7 +74,7 @@ if (isset($_SESSION['user_email'])) {
         </form>
 
         <!-- signup form -->
-        <form method="post" action="./signup.php">
+        <form method="post" action="./signup.php" enctype="multipart/form-data">
             <div class="signup-box">
                 <?php if (isset($_SESSION['signup'])) { ?>
                     <div class="alert alert-danger">
@@ -90,6 +90,10 @@ if (isset($_SESSION['user_email'])) {
                 <input name="email" value="" type="email" class="email ele" placeholder="youremail@email.com">
                 <input name="password" value="" type="password" class="password ele" placeholder="password">
                 <input name="Cpassword" type="password" class="password ele" placeholder="Confirm password">
+               
+                <input name="avatar" type="file" class="custom-file-input ele1" id="customFile" accept="image/gif, image/jpeg, image/png, image/bmp">
+               
+
                 <button type="submit" class="clkbtn">Signup</button>
             </div>
         </form>
