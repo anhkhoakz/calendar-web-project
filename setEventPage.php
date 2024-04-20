@@ -16,11 +16,13 @@ if (!isset($_SESSION['user_email'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Stay organized with our user-friendly Calendar featuring events, reminders, and a customizable interface. Built with HTML, CSS, and JavaScript. Start scheduling today!" />
   <meta name="keywords" content="calendar, events, reminders, javascript, html, css, open source coding" />
+  
   <?php
   include './partials/head.php';
   ?>
 
   <link rel="stylesheet" href="style.css" />
+  
   <title>Calendar with Events</title>
 
 </head>
@@ -106,7 +108,7 @@ if (!isset($_SESSION['user_email'])) {
   
   <?php include './partials/footer.php' ?>
 
-  <script src="./script.js"></script>
+  <script src="./script.js"> </script>
 </body>
 
 </html>
