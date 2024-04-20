@@ -16,3 +16,25 @@ function editProfile() {
         emailInput.style.display = "none";
     }
 }
+
+function submitHiddenForm() {
+    let form = document.getElementById("hidden-form");
+
+    if (form) {
+        form.submit();
+    }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+    checkAndSubmitForm();
+
+    setInterval(checkAndSubmitForm, 1000);
+});
+
+function checkAndSubmitForm() {
+    let currentUrl = window.location.href;
+
+    if (currentUrl.endsWith("/profile.php")) {
+        submitHiddenForm();
+    }
+}
