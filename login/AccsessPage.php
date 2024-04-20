@@ -1,5 +1,5 @@
 <?php
-include "../partials/header.php";
+include "../partials/head.php";
 include "../config/constants.php";
 
 

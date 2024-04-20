@@ -263,11 +263,10 @@ getEvent(function(eventsArr) {
               activeDayEl.classList.remove("event");
             }
   
-          
         }
     };
   
-    xhr.open("POST", "http://localhost:3000/Event.php", true);
+    xhr.open("POST", "http://localhost:3000/event.php", true);
     xhr.send(formData);
   
     
@@ -293,25 +292,8 @@ getEvent(function(eventsArr) {
     addEventTitle.value = addEventTitle.value.slice(0, 60);
   });
   
-  function defineProperty() {
-    var osccred = document.createElement("div");
-    osccred.innerHTML =
-      "A Project By <a href='https://www.youtube.com/channel/UCiUtBDVaSmMGKxg1HYeK-BQ' target=_blank>Open Source Coding</a>";
-    osccred.style.position = "absolute";
-    osccred.style.bottom = "0";
-    osccred.style.right = "0";
-    osccred.style.fontSize = "10px";
-    osccred.style.color = "#ccc";
-    osccred.style.fontFamily = "sans-serif";
-    osccred.style.padding = "5px";
-    osccred.style.background = "#fff";
-    osccred.style.borderTopLeftRadius = "5px";
-    osccred.style.borderBottomRightRadius = "5px";
-    osccred.style.boxShadow = "0 0 5px #ccc";
-    document.body.appendChild(osccred);
-  }
-  
-  defineProperty();
+
+
   
   //allow only time in eventtime from and to
   addEventFrom.addEventListener("input", (e) => {
@@ -450,14 +432,20 @@ getEvent(function(eventsArr) {
                 alert("The event start time must be earlier than the current time.");
               }
               else{
+                if (eventsContainer.innerHTML === '<div class="no-event"><h3>No Events</h3></div>') {
+                  eventsContainer.innerHTML = this.responseText
+              }
+              else
                 eventsContainer.innerHTML += this.responseText;
-    
+              
                 addEventWrapper.classList.remove("active");
     
                 const activeDayEl = document.querySelector(".day.active");
                 if (!activeDayEl.classList.contains("event")) {
                     activeDayEl.classList.add("event");
                 }  
+                        
+         
               }
                 
             }
