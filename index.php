@@ -76,7 +76,7 @@ if (isset($_GET['status'])) {
                 unset($_SESSION['updateEventSuccess']);
             }
         ?>
-
+        
         <table class="table table-striped text-center">
             <thead>
                 <tr>

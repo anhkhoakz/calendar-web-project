@@ -48,12 +48,13 @@ $userName = $user['Username'];
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <div class="container mt-5">
+    <div class="container mt-5" style="height: 78.3vh;">
         <?php 
             if(isset($_SESSION["changePass"])){
         ?>
@@ -175,8 +176,8 @@ $userName = $user['Username'];
                         </div>
                         
                         <div class="mb-3">
-                            <label for="confirmPassword" class="form-label">avatar</label>
-                            <input type="file" accept="image/gif, image/jpeg, image/png, image/bmp" class="form-control" id="confirmPassword" name="avatar" />
+                            <label for="selectAvatar" class="form-label">Avatar</label>
+                            <input type="file" accept="image/gif, image/jpeg, image/png, image/bmp" class="form-control" id="selectAvatar" name="avatar" />
                         </div>
 
                         <div class="mb-3">
@@ -237,6 +238,7 @@ $userName = $user['Username'];
         </div>
     </div>
     <!-- End of Password change form modal -->
+    <?php include "./partials/footer.php"?>
 
 </body>
 
