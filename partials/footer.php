@@ -1,4 +1,4 @@
-<footer>
+<footer class="footer mt-auto">
   <div class="credits">
     <p>
       Crafted with ❤️ by

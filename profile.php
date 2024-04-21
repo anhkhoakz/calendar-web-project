@@ -27,13 +27,14 @@ if(isset($_POST['updateUser'])){
     }
     else{
         $img_name =  $_FILES['avatar']['name'];
-        $img_destination_path = '../imgs/' . $img_name;
+        $img_destination_path = './imgs/' . $img_name;
         $img_tmp_name = $_FILES['avatar']['tmp_name'];
 
         move_uploaded_file($img_tmp_name, $img_destination_path);
     }
 
     updateUser($email,$userName, $img_name, $confirmPass,$conn);
+    $avatar = selectAvatarByEmail($_SESSION["user_email"],$conn);
 }
 
 $user = selectUser($email,$conn);
@@ -54,7 +55,7 @@ $userName = $user['Username'];
 </head>
 
 <body>
-    <div class="container mt-5" style="height: 78.3vh;">
+    <div class="container mt-5" style="min-height: 78.3vh;">
         <?php 
             if(isset($_SESSION["changePass"])){
         ?>
@@ -171,8 +172,8 @@ $userName = $user['Username'];
                 <div class="modal-body">
                         <input type="hidden" name="email" id="email" value=" <?= $_SESSION['user_email'] ?>" />
                         <div class="mb-3">
-                            <label for="username" class="form-label">New User Name</label>
-                            <input type="text" class="form-control" id="username" name="username" required />
+                            <label for="username" class="form-label">New Name</label>
+                            <input type="text" class="form-control" id="username" name="username" value="<?=$userName?>" />
                         </div>
                         
                         <div class="mb-3">
@@ -239,7 +240,6 @@ $userName = $user['Username'];
     </div>
     <!-- End of Password change form modal -->
     <?php include "./partials/footer.php"?>
-
 </body>
 
 </html>
