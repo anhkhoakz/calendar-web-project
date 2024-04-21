@@ -1,8 +1,7 @@
 <footer class="footer mt-auto">
   <div class="credits">
     <p>
-      Crafted with ❤️ by
-      <a href="https://youtu.be/6EVgmpm4z5U" target="_blank">Open Source Coding</a>
+      Created by Duc An under <a href="../LICENSE.php"> GNU GPLv3 License</a>
     </p>
   </div>
 </footer>
